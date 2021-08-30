@@ -1,0 +1,42 @@
+@use "sass:math";
+@import "../general/variables";
+@import "./breakpointMixin";
+
+@mixin row-cols($count) {
+  & > * {
+    flex: 0 0 math.div(100%, $count);
+    max-width: math.div(100%, $count);
+  }
+}
+
+@mixin row-cols-gut($count, $space) {
+  display: grid;
+  grid-template-columns: repeat($count, 1fr);
+  grid-column-gap: $step * $space;
+  grid-row-gap: $step * $space;
+  -ms-grid-template-columns: repeat($count, 1fr);
+  -ms-grid-column-gap: $step * $space;
+  -ms-grid-row-gap: $step * $space;
+}
+
+@mixin row-cols-gut-small($count, $space) {
+  display: grid;
+  grid-template-columns: repeat($count, 1fr);
+  grid-column-gap: #{$space}px;
+  grid-row-gap: #{$space}px;
+  -ms-grid-template-columns: repeat($count, 1fr);
+  -ms-grid-column-gap: #{$space}px;
+  -ms-grid-row-gap: #{$space}px;
+}
+
+@mixin gutter-cols($count) {
+  & > * {
+    padding: $count * $step;
+    max-width: math.div(100%, $count);
+  }
+}
+
+@mixin background-opacity($color, $opacity: 0.3) {
+  background: $color; /* The Fallback */
+  background: rgba($color, $opacity);
+}

@@ -1,0 +1,41 @@
+@import "../general/variables";
+
+@mixin border ($color: 'Primary', $saturation: 400, $position: 'all', $radius: ($brd-radius-small / 2), $opacity: 1) {
+  $colorSelected: map_get($colorsList, $color);
+  border-style: solid;
+  border-width: 0px;
+  @if ($position == 'all') {
+    border-width: 1px;
+  }
+  @if ($position == 'top') {
+    border-top-width: 1px;
+  }
+  @if ($position == 'bottom') {
+    border-bottom-width: 1px;
+  }
+  @if ($position == 'left') {
+    border-left-width: 1px;
+  }
+  @if ($position == 'right') {
+    border-right-width: 1px;
+  }
+  border-radius: $radius;
+  @if ($color == 'Dark' or $color == 'Light') {
+    @if ($saturation == 200) {
+      border-color: map_get($lightColor, 400);
+    }
+    @if ($saturation == 300) {
+      border-color: map_get($lightColor, 700);
+    }
+    @if ($saturation == 400) {
+      border-color: map_get($darkColor, 400);
+    }
+    @if ($saturation == 500) {
+      border-color: map_get($darkColor, 700);
+    }
+  } @else {
+    @if ($colorSelected != null) {
+      border-color: rgba(map_get($colorSelected, $saturation), $opacity);
+    }
+  }
+}

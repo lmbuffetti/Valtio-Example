@@ -1,26 +1,28 @@
 import { proxy, useSnapshot } from 'valtio';
+import Cookies from 'universal-cookie';
 import { rootReducer } from '../reducers/index';
 import api from '../controllers/api/config';
 
+const cookie = new Cookies();
+
 const store = proxy(rootReducer());
 
-export const loggedInUser = () => {
-  const data = {
-    "email": "eve.holt@reqres.in",
-    "password": "cityslicka",
-  }
+export const getUser = (id = 2) => {
+  api.user.getSingleUser(id)
+    .then((usr) => {
+      store.user.loggedInUser = usr.data;
+    });
+};
+
+export const loggedInUser = (data) => {
   api.user.getToken(data)
     .then((res) => {
-      console.log(res);
-      api.user.getSingleUser(2)
-        .then((usr) => {
-          console.log(usr);
-          store.user.loggedInUser = usr.data;
-        })
-    })
-}
+      getUser(2);
+      cookie.set('token', res.data.token);
+    });
+};
 
 export const getLoggedInUser = () => {
-  const snapShot = useSnapshot(store)
+  const snapShot = useSnapshot(store);
   return snapShot.user.loggedInUser;
-}
+};

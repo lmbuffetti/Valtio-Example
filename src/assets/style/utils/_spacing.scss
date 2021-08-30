@@ -1,0 +1,71 @@
+// Container widths
+//
+// Set the container width, and override it for fixed navbars in media queries.
+
+/// Grid system
+//
+// Generate semantic grid columns with these mixins.
+@import "./fontMixin";
+@import "./grid";
+@import "./breakpointMixin";
+
+@mixin make-space-elements($columns: $grid-columns, $gutter: $grid-gutter-width, $breakpoints: $grid-breakpoints) {
+  @each $device in map_keys($device-breaakpoints) {
+    $infix: breakpoint-infix($device, $device-breaakpoints);
+    .hide#{$infix} { display: none }
+    .dis#{$infix} { display: inherit }
+    .dis-f#{$infix} { display: flex }
+    .dis-b#{$infix} { display: block }
+  }
+  @each $breakpoint in map-keys($breakpoints) {
+    // CSS: LOAD BREAKPOINT
+    $infix: breakpoint-infix($breakpoint, $breakpoints);
+    // CSS: RESPONSIVE FUNCTION
+    @include media-breakpoint-up($breakpoint, $breakpoints) {
+      // CSS: WIDTH AND HEIGHT
+      .h-auto#{$infix} { height: auto }
+      .w-fit#{$infix} { width: fit-content }
+      .w-auto#{$infix} { width: auto }
+      @for $i from 0 through 150 {
+        .height#{$infix}-#{$i} { height: #{$i}vh }
+        .h-perc#{$infix}-#{$i} { height: percentage($i / 100) }
+        .max-h-perc#{$infix}-#{$i} { max-height: percentage($i / 100) }
+        .min-h-perc#{$infix}-#{$i} { min-height: percentage($i / 100) }
+        .width#{$infix}-#{$i} { width: #{$i}vh }
+        .w-perc#{$infix}-#{$i} { width: percentage($i / 100) }
+        .w-perc-flex#{$infix}-#{$i} { width: percentage($i / 100) }
+        .max-w-perc#{$infix}-#{$i} { max-width: percentage($i / 100) }
+        .min-w-perc#{$infix}-#{$i} { min-width: percentage($i / 100) }
+        .bg-size-w#{$infix}-#{$i} { background-size: percentage($i / 100) auto }
+        .bg-size-h#{$infix}-#{$i} { background-size: auto percentage($i / 100) }
+      }
+      $max: 800;
+      $maxHd: 1920;
+      @for $i from 0 through ceil($max/$stp) {
+        $value: $i * $stp;
+        .height-fix#{$infix}-#{$value} { height: #{$value}px }
+        .h-fix#{$infix}-#{$value} { height: #{$value}px }
+        .min-h-fix#{$infix}-#{$value} { min-height: #{$value}px }
+        .max-h-fix#{$infix}-#{$value} { max-height: #{$value}px }
+        .w-fix#{$infix}-#{$value} { width: #{$value}px }
+        .w-fix-flex#{$infix}-#{$value} { width: #{$value}px; flex: 0 0 #{$value}px }
+        .max-w-fix#{$infix}-#{$value} { max-width: #{$value}px }
+        .min-w-fix#{$infix}-#{$value} { min-width: #{$value}px }
+      }
+      @for $f from ceil($max/($stp * 2)) through ceil($maxHd/($stp * 2)) {
+        $val: $f * $stp * 2;
+        .height-fix#{$infix}-#{$val} { height: #{$val}px }
+        .h-fix#{$infix}-#{$val} { height: #{$val}px }
+        .min-h-fix#{$infix}-#{$val} { min-height: #{$val}px }
+        .max-h-fix#{$infix}-#{$val} { max-height: #{$val}px }
+        .w-fix#{$infix}-#{$val} { width: #{$val}px }
+        .max-w-fix#{$infix}-#{$val} { max-width: #{$val}px }
+        .min-w-fix#{$infix}-#{$val} { min-width: #{$val}px }
+      }
+      @for $i from 1 through ceil($max/$stp) {
+        $value: $i * $stp;
+        .flex#{$infix}-#{$value} { flex: 0 0 #{$value}px }
+      }
+    }
+  }
+}

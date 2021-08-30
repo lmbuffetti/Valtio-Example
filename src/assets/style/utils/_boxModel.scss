@@ -1,0 +1,98 @@
+@use "sass:math";
+@import "./fontMixin";
+@import "./grid";
+@import "./breakpointMixin";
+
+@mixin make-boxmodel-elements($columns: $grid-columns, $gutter: $grid-gutter-width, $breakpoints: $grid-breakpoints) {
+  @each $breakpoint in map-keys($breakpoints) {
+    // CSS: LOAD BREAKPOINT
+    $infix: breakpoint-infix($breakpoint, $breakpoints);
+    // CSS: RESPONSIVE FUNCTION
+    @include media-breakpoint-up($breakpoint, $breakpoints) {
+      // ROWS TO CONTAINS COLUMNS
+      .row#{$infix} {
+        display: flex;
+        flex-wrap: wrap;
+        margin-right: math.div(-$gutter, 2);
+        margin-left: math.div(-$gutter, 2);
+      }
+      // ROW COLUMNS
+      @for $i from 1 through $grid-row-columns {
+        .row-cols#{$infix}-#{$i} {
+          @include row-cols($i);
+        }
+        @for $f from 1 through 8 {
+          .row-cols#{$infix}-#{$i}-gut-#{$f} {
+            @include row-cols-gut($i, $f);
+          }
+          .row-cols#{$infix}-#{$i}-gutsmall-#{$f} {
+            @include row-cols-gut-small($i, $f);
+          }
+        }
+      }
+      // CSS: CYCLE FOR COLUMS STEP
+      @for $i from 1 through $columns {
+        .col#{$infix}-#{$i} {
+          flex: 0 0 percentage(math.div($i, $columns));
+          width: percentage(math.div($i, $columns));
+          padding-right: math.div($gutter, 2);
+          padding-left: math.div($gutter, 2);
+        }
+        .offset#{$infix}-#{$i} {
+          $off: math.div($i, $columns);
+          margin-left: if($off == 0, 0, percentage($off));
+        }
+      }
+      // CSS: PADDING AND MARGIN
+      .m-a#{$infix} {  margin: auto; }
+      .mx-a#{$infix} {  margin-left: auto; margin-right: auto; }
+      .ml-a#{$infix} {  margin-left: auto; }
+      .mr-a#{$infix} {  margin-right: auto; }
+      @for $i from 0 through 100 {
+        // PADDING
+        .pt-small#{$infix}-#{$i} { padding-top: #{$i}px }
+        .pr-small#{$infix}-#{$i} { padding-right: #{$i}px }
+        .pb-small#{$infix}-#{$i} { padding-bottom: #{$i}px }
+        .pl-small#{$infix}-#{$i} { padding-left: #{$i}px }
+        .px-small#{$infix}-#{$i} { padding-left: #{$i}px; padding-right: #{$i}px; }
+        .py-small#{$infix}-#{$i} { padding-top: #{$i}px; padding-bottom: #{$i}px; }
+        .p-small#{$infix}-#{$i} { padding: #{$i}px; }
+        // MARGIN
+        .mt-small#{$infix}-#{$i} { margin-top: #{$i}px }
+        .mr-small#{$infix}-#{$i} { margin-right: #{$i}px }
+        .mb-small#{$infix}-#{$i} { margin-bottom: #{$i}px }
+        .ml-small#{$infix}-#{$i} { margin-left: #{$i}px }
+        .mx-small#{$infix}-#{$i} { margin-left: #{$i}px; margin-right: #{$i}px; }
+        .my-small#{$infix}-#{$i} { margin-top: #{$i}px; margin-bottom: #{$i}px; }
+        .m-small#{$infix}-#{$i} { margin: #{$i}px; }
+      }
+      @for $i from 0 through $numberStep {
+        // PADDING
+        .pt#{$infix}-#{$i} { padding-top: $i * $step }
+        .pr#{$infix}-#{$i} { padding-right: $i * $step }
+        .pb#{$infix}-#{$i} { padding-bottom: $i * $step }
+        .pl#{$infix}-#{$i} { padding-left: $i * $step }
+        .px#{$infix}-#{$i} { padding-left: $i * $step; padding-right: $i * $step; }
+        .py#{$infix}-#{$i} { padding-top: $i * $step; padding-bottom: $i * $step; }
+        .p#{$infix}-#{$i} { padding: $i * $step; }
+        // MARGIN
+        .mt#{$infix}-#{$i} { margin-top: $i * $step }
+        .mr#{$infix}-#{$i} { margin-right: $i * $step }
+        .mb#{$infix}-#{$i} { margin-bottom: $i * $step }
+        .ml#{$infix}-#{$i} { margin-left: $i * $step }
+        .mx#{$infix}-#{$i} { margin-left: $i * $step; margin-right: $i * $step; }
+        .my#{$infix}-#{$i} { margin-top: $i * $step; margin-bottom: $i * $step; }
+        .m#{$infix}-#{$i} { margin: $i * $step; }
+        .mt#{$infix}-#{$i}-neg { margin-top: ($i * $step) * -1 }
+        .mr#{$infix}-#{$i}-neg { margin-right: ($i * $step) * -1 }
+        .mb#{$infix}-#{$i}-neg { margin-bottom: ($i * $step) * -1 }
+        .ml#{$infix}-#{$i}-neg { margin-left: ($i * $step) * -1 }
+        .mx#{$infix}-#{$i}-neg { margin-left: ($i * $step) * -1; margin-right: ($i * $step) * -1; }
+        .my#{$infix}-#{$i}-neg { margin-top: ($i * $step) * -1; margin-bottom: ($i * $step) * -1; }
+        .m#{$infix}-#{$i}-neg { margin: ($i * $step) * -1; }
+      }
+    }
+  }
+}
+
+@include make-boxmodel-elements();

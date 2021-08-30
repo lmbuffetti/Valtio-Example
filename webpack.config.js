@@ -2,18 +2,23 @@ process.env.NODE_ENV = process.argv[process.argv.length - 1];
 process.env.BABEL_ENV = process.argv[process.argv.length - 1];
 const path = require('path');
 const webpack = require('webpack');
+const glob = require('glob');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 // const OptimizeCSSAssetsPlugin = require('optimize-css-assets-webpack-plugin');
 const { CleanWebpackPlugin } = require('clean-webpack-plugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const CopyPlugin = require('copy-webpack-plugin');
-// const CSSNano = require('cssnano');
+const PurgecssPlugin = require('purgecss-webpack-plugin')
 
 // const devMode = false;
 const ROOT_DIR = path.resolve(__dirname, './');
 const BUILD_DIR = path.join(ROOT_DIR, './dist');
 const devMode = process.argv[process.argv.length - 1] === 'development';
 const getEnvBuild = process.argv[process.argv.length - 3];
+
+const PATHS = {
+  src: path.join(__dirname, 'src')
+}
 
 const clientConfig = {
   mode: 'development',
@@ -22,7 +27,7 @@ const clientConfig = {
     polyfill: '@babel/polyfill',
     main: [
       './src/index.jsx',
-      './src/assets/style/general/main.css',
+      './src/assets/style/general/main.scss',
     ],
   },
   devServer: {
@@ -182,6 +187,7 @@ const clientConfig = {
     new CopyPlugin({
       patterns: [
         { from: './public/favicon.ico', to: './' },
+        { from: './public/favicon.ico', to: './' },
       ],
     }),
     // new webpack.HotModuleReplacementPlugin(),
@@ -211,7 +217,10 @@ const clientConfig = {
       'process.env': {
         NODE_ENV: JSON.stringify(devMode ? 'development' : 'production'),
       },
-    }),
+    })
+    // new PurgecssPlugin({
+    //  paths: glob.sync(`${PATHS.src}/**/*`,  { nodir: true }),
+    // }),
   ],
   resolve: {
     extensions: ['.js', '.jsx'],

@@ -1,0 +1,71 @@
+@import "../general/variables";
+
+@mixin fontStyle ($style: 400, $weight: 'regular', $textAlign: null, $uppercase: null) {
+  @if ($weight != null) {
+    font-weight: map_get($fontWeight, $weight);
+  }
+  @if ($textAlign and $textAlign != null) {
+    text-align: $textAlign;
+  }
+  @if $style == 100 {
+    font-size: 0.625rem;
+    line-height: 1rem;
+  }
+  @if $style == 200 {
+    font-size: 0.75rem;
+    line-height: 1.06rem;
+  }
+  @if $style == 300 {
+    font-size: 0.875rem;
+    line-height: 1.5rem;
+  }
+  @if $style == 400 {
+    font-size: 1rem;
+    line-height: 1.5rem;
+  }
+  @if $style == 500 {
+    font-size: 1.25rem;
+    line-height: 1.75rem;
+  }
+  @if $style == 600 {
+    font-size: 1.5rem;
+    line-height: 2rem;
+  }
+  @if $style == 700 {
+    font-size: 1.75rem;
+    line-height: 2.375rem;
+  }
+  @if $style == 800 {
+    font-size: 2rem;
+    line-height: 2.75rem;
+  }
+  @if $style == 900 {
+    font-size: 2.5rem;
+    line-height: 3.375rem;
+  }
+}
+
+/* purgecss start ignore */
+@mixin icomoon() {
+  /* use !important to prevent issues with browser extensions that change fonts */
+  font-family: '#{$icomoon-font-family}' !important;
+  speak: none;
+  font-style: normal;
+  font-weight: normal;
+  font-variant: normal;
+  text-transform: none;
+  line-height: 1;
+
+  /* Better Font Rendering =========== */
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  font-size: 22px;
+}
+
+
+// Break overflowing text line that has no space
+@mixin line-break {
+  -ms-word-break: break-all;
+  word-break: break-all;
+  word-break: break-word;
+}

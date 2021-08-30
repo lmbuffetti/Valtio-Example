@@ -1,0 +1,14 @@
+header.mainHeader {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  z-index: 100;
+  background: #FFF;
+  box-shadow: $shadow-2dp;
+  .headerAccount {
+    img {
+      width: 50px;
+    }
+  }
+}

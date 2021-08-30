@@ -1,8 +1,8 @@
-import { proxy } from 'valtio'
+import { proxy } from 'valtio';
 
 const defaultState = {
   userTypes: '',
   loggedInUser: {},
 };
 
-export const userReducer = () => proxy({...defaultState});
+export const userReducer = () => proxy({ ...defaultState });

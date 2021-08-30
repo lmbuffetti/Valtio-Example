@@ -1,0 +1,152 @@
+@use "sass:math";
+
+$imgPath: '../../' !default;
+$imgRootpath: '../../../' !default;
+
+// FONT FAMILY
+$font-family-primary: 'Montserrat', Helvetica, Arial, sans-serif;
+$font-family-secondary: 'Arial', Helvetica, Arial, sans-serif;
+
+// FONT SIZE
+$bodyText: 16px !default;
+
+// MARGIN & PADDING
+$stp: 8 !default;
+$step: 8px !default;
+$numberStep: 20;
+
+$grid-space: (
+        xs: 5px,
+        sm: 15px,
+        med: 21px,
+        lg: 50px,
+        xl: 100px,
+) !default;
+
+$grid-breakpoints: (
+        xxs: 0,
+        xs: 420,
+        sm: 590px,
+        md: 769px,
+        lg: 1024px,
+        xl: 1425px,
+        xxl: 1920px,
+) !default;
+
+$device-breaakpoints: (
+        blackberry: 'blackberry',
+        android: 'android',
+        ios: 'ios',
+        operaMini: 'operaMini',
+        ieMobile: 'ieMobile',
+        mobile: 'mobile',
+        desktop: 'desktop',
+) !default;
+
+$container-max-widths: (
+        sm: 768px,
+        md: 1024px,
+        lg: 1300px,
+        xl: 1425px,
+        xxl: 1920px,
+) !default;
+
+// MEDIA BREAKPOINTS VARIABLES
+$responsive-phone-to-tablet-big: map_get($grid-breakpoints, sm) !default;
+$responsive-phone-to-tablet: map_get($grid-breakpoints, xs) !default;
+$responsive-small: map_get($grid-breakpoints, sm) !default;
+$responsive-medium: map_get($grid-breakpoints, md) !default;
+$responsive-large: map_get($grid-breakpoints, lg) !default;
+$responsive-full-hd: map_get($grid-breakpoints, xxl) !default;
+
+$enable-grid-classes:  true !default;
+$grid-columns:         12 !default;
+$grid-gutter-width:    32px !default;
+$grid-row-columns:     10 !default;
+
+// Container padding
+
+$container-padding-x: math.div($grid-gutter-width, 2) !default;
+
+// TRANSITIONS
+$default-time: 150ms;
+$default-time-long: 350ms;
+$default-loader-time: 400ms;
+$default-easing: ease-in-out;
+$ease: ease;
+$custom-easing: cubic-bezier(0.175, 0.885, 0.32, 1.275);
+
+// SHADOWS
+$shadow: '-10px 10px 20px 0 #F0EFED';
+
+$shadow-inset: inset 0 0 4px 0 rgba(96,97,112,0.32);
+$shadow-inset-dark: inset 0 0 4px 0 rgba(0,0,0,0.32);
+
+$shadow-0dp: 'none';
+$shadow-1dp: 0 0 1px 0 rgba(40,41,61,0.08), 0 0 2px 0 rgba(96,97,112,0.16);
+$shadow-2dp: 0 0 1px 0 rgba(40,41,61,0.04), 0 2px 4px 0 rgba(96,97,112,0.16);
+$shadow-3dp: 0 0 2px 0 rgba(40,41,61,0.04), 0 4px 8px 0 rgba(96,97,112,0.16);
+$shadow-4dp: 0 2px 4px 0 rgba(40,41,61,0.04), 0 8px 16px 0 rgba(96,97,112,0.16);
+$shadow-5dp: 0 2px 8px 0 rgba(40,41,61,0.04), 0 16px 24px 0 rgba(96,97,112,0.16);
+$shadow-6dp: 0 2px 8px 0 rgba(40,41,61,0.08), 0 20px 32px 0 rgba(96,97,112,0.24);
+
+$shadow-1dp-top: 0 0 1px 0 rgba(40,41,61,0.08), 0 0 2px 0 rgba(96,97,112,0.16);
+$shadow-2dp-top: 0 0 1px 0 rgba(40,41,61,0.04), 0 -2px 4px 0 rgba(96,97,112,0.16);
+$shadow-3dp-top: 0 0 2px 0 rgba(40,41,61,0.04), 0 -4px 8px 0 rgba(96,97,112,0.16);
+$shadow-4dp-top: 0 -2px 4px 0 rgba(40,41,61,0.04), 0 -8px 16px 0 rgba(96,97,112,0.16);
+$shadow-5dp-top: 0 -2px 8px 0 rgba(40,41,61,0.04), 0 -16px 24px 0 rgba(96,97,112,0.16);
+$shadow-6dp-top: 0 -2px 8px 0 rgba(40,41,61,0.08), 0 -20px 32px 0 rgba(96,97,112,0.24);
+
+$shadow-1dp-dark: 0 0 1px 0 rgba(40,41,61,0.08), 0 1px 2px 0 rgba(0,0,0,0.32);
+$shadow-2dp-dark: 0 0 1px 0 rgba(0,0,0,0.04), 0 2px 4px 0 rgba(0,0,0,0.32);
+$shadow-3dp-dark: 0 0 2px 0 rgba(0,0,0,0.04), 0 4px 8px 0 rgba(0,0,0,0.32);
+$shadow-4dp-dark: 0 2px 4px 0 rgba(0,0,0,0.04), 0 8px 16px 0 rgba(0,0,0,0.32);
+$shadow-5dp-dark: 0 2px 8px 0 rgba(0,0,0,0.04), 0 16px 24px 0 rgba(0,0,0,0.32);
+$shadow-6dp-dark: 0 2px 8px 0 rgba(0,0,0,0.08), 0 20px 32px 0 rgba(0,0,0,0.32);
+
+// BORDER
+$brd-radius-small: 8px !default;
+$brd-radius-xsmall: 4px !default;
+$brd-radius-circle: 100rem !default;
+
+$brx-white: #FFF !default;
+$brx-black: #000 !default;
+
+// COLORS
+$primaryColor: (
+        100: #EFF1FF, // Brilliant White
+        200: #BDC5FF,
+        300: #8C9AFF,
+        400: #5A6EFF, // Blue Heath Butterfly
+        500: #414CD5,
+        600: #2B2EAA,
+        700: #1E1491, // Blue Trust
+) !default;
+
+$fontSize: (
+        100: '0.7rem',
+        200: '0.8rem',
+        300: '0.9rem',
+        400: '1rem',
+        500: '1.2rem',
+        600: '1.4rem',
+        700: '1.6rem',
+        800: '1.8rem',
+        900: '2rem',
+) !default;
+
+
+
+$colorsList: (
+        Primary: $primaryColor,
+);
+
+$primaryColorSel: 400 !default;
+$primaryColorSelHove: 500 !default;
+
+$fontWeight: (
+        regular: 400,
+        medium: 500,
+        semibold: 600,
+        bold: 700,
+) !default;

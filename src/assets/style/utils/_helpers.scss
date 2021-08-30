@@ -1,0 +1,198 @@
+@use "sass:math";
+
+@import "./fontMixin";
+@import "./grid";
+@import "./breakpointMixin";
+
+@mixin make-grid-elements($columns: $grid-columns, $gutter: $grid-gutter-width, $breakpoints: $grid-breakpoints) {
+  @each $device in map_keys($device-breaakpoints) {
+    $infix: breakpoint-infix($device, $device-breaakpoints);
+    .hide#{$infix} { display: none }
+    .dis#{$infix} { display: inherit }
+    .dis-f#{$infix} { display: flex }
+    .dis-b#{$infix} { display: block }
+  }
+  @each $breakpoint in map-keys($breakpoints) {
+    // CSS: LOAD BREAKPOINT
+    $infix: breakpoint-infix($breakpoint, $breakpoints);
+    // CSS: RESPONSIVE FUNCTION
+    @include media-breakpoint-up($breakpoint, $breakpoints) {
+      // CSS: FONT SIZE
+      @each $fSize in map-keys($fontSize) {
+        .fsize#{$infix}-#{$fSize} {
+          @include fontStyle($fSize, null);
+        }
+      }
+      @for $i from 1 to 40 {
+        .fSizePx#{$i}#{$infix} {
+          font-size: #{$i}px;
+        }
+      }
+      // CSS: FONT WEIGHT
+      @for $i from 1 to 10 {
+        $weight: $i * 100;
+        .fweight#{$infix}-#{$weight} { font-weight: $weight };
+        .order#{$infix}-#{$i} { order: $i }
+      }
+      // CSS: TEXT
+      .ta-c#{$infix} { text-align: center }
+      .ta-r#{$infix} { text-align: right }
+      .ta-l#{$infix} { text-align: left }
+      .tt-low#{$infix} { text-transform: lowercase; }
+      .tt-up#{$infix} { text-transform: uppercase; }
+      .tt-c#{$infix} { text-transform: capitalize; }
+      .tt-ellips { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+      .ws-n#{$infix} { white-space: normal }
+      .ws-nw#{$infix} { white-space: nowrap }
+      .ws-pw#{$infix} { white-space: pre-wrap }
+      .ws-pl#{$infix} { white-space: pre-line }
+      .wb-ba#{$infix} { word-break: break-all; }
+      // CSS: DISPLAY
+      .hide#{$infix} { display: none }
+      .dis#{$infix} { display: inherit }
+      .dis-f#{$infix} { display: flex }
+      .dis-b#{$infix} { display: block }
+      .dis-ib#{$infix} { display: inline-block }
+      .fl-r#{$infix} { float: right; }
+      .fl-l#{$infix} { float: left; }
+      .dis-fl-col#{$infix} { display: flex; flex-direction: column; }
+      .dis-fl-row#{$infix} { display: flex; flex-direction: row; }
+      .dis-fl-col-rev#{$infix} { display: flex; flex-direction: column-reverse; }
+      .dis-fl-row-rev#{$infix} { display: flex; flex-direction: row-reverse; }
+      .flex-wrap#{$infix} { flex-wrap: wrap; }
+      .flex-nowrap#{$infix} { flex-wrap: nowrap; }
+      .flex-1#{$infix} {flex: 1;}
+      .ov-h#{$infix} { overflow: hidden; }
+      .ov-a#{$infix} { overflow: auto; }
+      .ov-v#{$infix} { overflow: visible; }
+      .ov-x-h#{$infix} { overflow-x: hidden; }
+      .ov-y-h#{$infix} { overflow-y: hidden; }
+      .ov-x-a#{$infix}#{$infix} { overflow-x: auto; }
+      .ov-y-a#{$infix} { overflow-y: auto; }
+      .ov-x-v#{$infix} { overflow-x: visible; }
+      .ov-y-v#{$infix} { overflow-y: visible; }
+      // CSS: Z-INDEX
+      @for $i from 1 to 100 {
+        .zIndex#{$i}#{$infix} {
+          z-index: #{$i};
+        }
+      }
+      // Opacity classes
+      @for $i from 0 to 10 {
+        .opacity#{$i}#{$infix} {
+          opacity: math.div($i, 10);
+        }
+      }
+      // CSS: JUSTIFY CONTENT
+      .jc-b#{$infix} { justify-content: space-between; }
+      .jc-sa#{$infix} { justify-content: space-around; }
+      .jc-fs#{$infix} { justify-content: flex-start; }
+      .jc-e#{$infix} { justify-content: end; }
+      .jc-fe#{$infix} { justify-content: flex-end; }
+      .jc-c#{$infix} { justify-content: center; }
+      // CSS: ALIGN CONTENT
+      .a-c#{$infix} { align-content: center; align-items: center; }
+      .a-b#{$infix} { align-content: flex-end; align-items: flex-end; }
+      .a-bl#{$infix} { align-items: baseline; }
+      .a-t#{$infix} { align-content: flex-start; align-items: flex-start; }
+      // CSS: ALIGN SELF CONTENT
+      .as-fe#{$infix} { align-self: flex-end; }
+      .as-fs#{$infix} { align-self: flex-start; }
+      .as-b#{$infix} { align-self: baseline; }
+      .as-c#{$infix} { align-self: center; }
+      // CSS: TEXT DECORATION
+      .td-u#{$infix} { text-decoration: underline }
+      .td-lt#{$infix} { text-decoration: line-through }
+      .td-n#{$infix} { text-decoration: none }
+      // CSS: BACKGROUND
+      .bgOverContainer#{$infix} {
+        height: calc( 100% + #{$step * 10});
+        position: relative;
+        top: -#{$step * 10};
+        background-position: center;
+        background-size: cover;
+      }
+      // CSS: BORDER
+      .brdRadius#{$infix} { border-radius: $brd-radius-small; }
+      .brdRadiusTop#{$infix} { border-radius: $brd-radius-small $brd-radius-small 0 0; }
+      .borRoundTopR#{$infix} { border-radius: $brd-radius-small; border-top-right-radius: 100px; }
+      .borRoundBotL#{$infix} { border-radius: $brd-radius-small; border-bottom-left-radius: 100px; }
+      .borRoundTopL#{$infix} { border-radius: $brd-radius-small; border-top-left-radius: 100px; }
+      .brdCircle#{$infix} { border-radius: 50%; }
+      // CSS: IMAGES
+      .bgNoRepeat#{$infix} { background-repeat: no-repeat; }
+      .imgCover#{$infix} { background-size: cover; }
+      .imgContain#{$infix} { background-size: contain; }
+      .imgCenter#{$infix} { background-position: center; }
+      .imgRight#{$infix} { background-position: center right; }
+      .imgOver#{$infix} {
+        position: relative;
+        &:after {
+          position: absolute;
+          left: 0;
+          top: 0;
+          content: '';
+          width: 100%;
+          height: 100%;
+          @include background-opacity(#000000, 0.2);
+          z-index: 1;
+        }
+      }
+      .imgRatio#{$infix} {
+        position: relative;
+        &:after {
+          content: "";
+          display: block;
+          padding-bottom: calc(60% + #{$step} * 5);
+        }
+      }
+      // CSS: POSITION
+      .pos-r#{$infix} { position: relative; }
+      .pos-a-fix#{$infix} {
+        position: absolute;
+        @for $i from 0 to 5 {
+          &.x-r-#{$i} {
+            right: #{$step * $i};
+          }
+          &.x-l-#{$i} {
+            left: #{$step * $i};
+          }
+          &.x-t-#{$i} {
+            top: #{$step * $i};
+          }
+          &.x-b-#{$i} {
+            bottom: #{$step * $i};
+          }
+        }
+      }
+      .pos-a#{$infix} {
+        position: absolute;
+        top: 0;
+        left: 0;
+        &.x-c {
+          transform: translateX(-50%);
+          left: 50%;
+        }
+        &.y-c {
+          top: 50%;
+          transform: translateY(-50%);
+        }
+        &.xy-c {
+          top: 50%;
+          left: 50%;
+          transform: translate(-50%, -50%);
+        }
+        &.x-r {
+          right: 0;
+          left: auto;
+        }
+        &.bt {
+          top: auto;
+          bottom: 0;
+        }
+      }
+    }
+  }
+}
+
+@include make-grid-elements();
