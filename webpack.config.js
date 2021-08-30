@@ -217,10 +217,10 @@ const clientConfig = {
       'process.env': {
         NODE_ENV: JSON.stringify(devMode ? 'development' : 'production'),
       },
-    })
-    // new PurgecssPlugin({
-    //  paths: glob.sync(`${PATHS.src}/**/*`,  { nodir: true }),
-    // }),
+    }),
+    new PurgecssPlugin({
+      paths: glob.sync(`${PATHS.src}/**/*`,  { nodir: true }),
+    }),
   ],
   resolve: {
     extensions: ['.js', '.jsx'],
