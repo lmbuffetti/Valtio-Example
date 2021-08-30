@@ -36,4 +36,4 @@ For the build and to run the project was used Webpack 5 and it was integrated th
 
 ### Valtio
 
-For more information of Valtio you can check the [Official Github Page](https://github.com/pmndrs/valtio) 
+For more information of Valtio you can check the [Official Github Valtio Page](https://github.com/pmndrs/valtio) 
