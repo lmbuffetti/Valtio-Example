@@ -1,21 +1,23 @@
-import React from 'react';
+import React, { useEffect, lazy, Suspense } from 'react';
+import { loggedInUser, getLoggedInUser } from './actions/UserActions';
+import { Route, Switch } from 'react-router-dom';
+
+const Account = lazy(() => import('./Pages/Account/Account'));
 
 function App() {
+  useEffect(() => {
+    loggedInUser();
+  }, []);
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
+    <div>
+      <header>
       </header>
+      <Suspense fallback={"Loading..."}>
+        <Switch>
+          <Route path="/account" component={Account} />
+        </Switch>
+      </Suspense>
     </div>
   );
 }
