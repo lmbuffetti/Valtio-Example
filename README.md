@@ -34,4 +34,6 @@ To learn React, check out the [React documentation](https://reactjs.org/).
 
 For the build and to run the project was used Webpack 5 and it was integrated the purgeCSS to clean all unused class.
 
+### Valtio
 
+For more information of Valtio you can check the [Official Github Page](https://github.com/pmndrs/valtio) 
