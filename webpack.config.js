@@ -8,7 +8,7 @@ const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const { CleanWebpackPlugin } = require('clean-webpack-plugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const CopyPlugin = require('copy-webpack-plugin');
-const PurgecssPlugin = require('purgecss-webpack-plugin')
+const PurgecssPlugin = require('purgecss-webpack-plugin');
 
 // const devMode = false;
 const ROOT_DIR = path.resolve(__dirname, './');
@@ -122,39 +122,18 @@ const clientConfig = {
         ],
       },
       {
-        test: /\.svg$/,
-        use: [
-          {
-            loader: '@svgr/webpack',
-          },
-          {
-            loader: 'file-loader',
-            options: {
-              name: '[name].[ext]',
-              outputPath: 'images/',
-            },
-          },
-        ],
-      },
-      {
         test: /\.(woff(2)?|ttf|eot)(\?v=\d+\.\d+\.\d+)?$/,
-        use: [{
-          loader: 'file-loader',
-          options: {
-            name: '[name].[fullhash].[ext]',
-            outputPath: 'fonts/',
-
-          },
-        }],
+        type: 'asset/resource',
+        generator: {
+          filename: 'fonts/[name][ext][query]',
+        },
       },
       {
-        test: /\.(jpe?g|png|gif)$/i,
-        use: [{
-          loader: 'file-loader?name=images/[name].[ext]',
-          options: {
-            esModule: false,
-          },
-        }],
+        test: /\.(jpe?g|png|gif|svg)$/i,
+        type: 'asset/resource',
+        generator: {
+          filename: 'images/[name][ext][query]',
+        },
       },
       {
         type: 'javascript/auto',

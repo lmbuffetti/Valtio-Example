@@ -17,7 +17,7 @@
   },
   "scripts": {
     "start": "NODE_ENV=page-dev webpack serve --config webpack.config.js --env DEV --mode development",
-    "build-prod": "NODE_ENV=page-prod webpack --config webpack_prod.config.js --env PROD --mode production",
+    "build-prod": "NODE_ENV=page-prod webpack --config webpack_prod.config.js --env PROD --mode production"
   },
   "eslintConfig": {
     "extends": [
